@@ -9,18 +9,33 @@ const token = '631244145:AAHSxbn0R-FwHqynb7Yn_8Eqz9VzJhKbIDs';
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
+tickers = [
+  'ETHUSDT',
+  'BTCUSDT',
+  'BNBUSDT',
+  'EOSUSDT',
+  'ETCUSDT',
+  'FETUSDT',
+  'HOTUSDT',
+  'NEOUSDT',
+  'LTCUSDT',
+  'ONTUSDT',
+  'TRXUSDT',
+  'XLMUSDT',
+  'XRPUSDT',
+]
 // Matches "/echo [whatever]"
-bot.onText(/\/echo (.+)/, (msg, match) => {
-  // 'msg' is the received Message from Telegram
-  // 'match' is the result of executing the regexp above on the text content
-  // of the message
+// bot.onText(/\/echo (.+)/, (msg, match) => {
+//   // 'msg' is the received Message from Telegram
+//   // 'match' is the result of executing the regexp above on the text content
+//   // of the message
 
-  const chatId = msg.chat.id;
-  const resp = match[1]; // the captured "whatever"
+//   const chatId = msg.chat.id;
+//   const resp = match[1]; // the captured "whatever"
 
-  // send back the matched "whatever" to the chat
-  bot.sendMessage(chatId, resp);
-});
+//   // send back the matched "whatever" to the chat
+//   bot.sendMessage(chatId, resp);
+// });
 
 // Listen for any kind of message. There are different kinds of
 // messages.
@@ -38,12 +53,11 @@ function alertUp(symbol, prev, cur, percent){
   // console.log(prev, cur);
   let flag = (prev < cur ? 'tăng': 'giảm');
   // console.log(flag);
-  bot.sendMessage(chatId, `${symbol} ${flag} ${percent}%
-  Giá trước: ${prev}
-  Giá sau: ${cur}`);
+  bot.sendMessage(chatId, `Phát hiện ${symbol} ${flag} ${percent}%
+${prev} \u{27A1} ${cur}`);
 }
 
-client.ws.candles('BTCUSDT', '15m', candle => {
+client.ws.candles(tickers, '15m', candle => {
     // console.log(candle)
     let { symbol, close, volume } = candle;
     let curPrice = record.get(symbol);
@@ -57,7 +71,7 @@ client.ws.candles('BTCUSDT', '15m', candle => {
     record.set(symbol, close);
 });
 
-// alertUp('BTCUSDT', 123, 45, 6);
+// alertUp('BTCUSDT', 123, 455, 6);
 
 // { eventType: 'kline',
 //   eventTime: 1555579303140,
