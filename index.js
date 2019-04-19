@@ -58,7 +58,7 @@ ${prev} \u{27A1} ${cur}`);
 }
 
 client.ws.candles(tickers, '15m', candle => {
-    // console.log(candle)
+    if (!candle.isFinal) return;
     let { symbol, close, volume } = candle;
     let curPrice = record.get(symbol);
     if (curPrice){
