@@ -64,7 +64,7 @@ client.ws.candles(tickers, '15m', candle => {
     if (curPrice){
       let percent = Math.abs((curPrice - close) / close) * 100;
       console.log(symbol, curPrice, close, percent);
-      if (percent >= 5){
+      if (percent >= 2){
         alertUp(symbol, curPrice, close, percent);
       }
     }
