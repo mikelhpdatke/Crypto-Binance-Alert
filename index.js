@@ -56,11 +56,11 @@ function alertUp(symbol, prev, cur, percent) {
   bot.sendMessage(
     chatId,
     `Phát hiện ${symbol} ${flag} ${percent}%
-${prev} \u{27A1} ${cur} trong 1 phút`
+${prev} \u{27A1} ${cur} trong 15 phút`
   );
 }
 
-client.ws.candles(tickers, "1m", candle => {
+client.ws.candles(tickers, "15m", candle => {
   if (!candle.isFinal) return;
   let { symbol, close, volume } = candle;
   let curPrice = record.get(symbol);
