@@ -61,13 +61,13 @@ ${prev} \u{27A1} ${cur} trong 15 phút`
 }
 
 client.ws.candles(tickers, "15m", candle => {
+  console.log(symbol, curPrice, close, percent);
   if (!candle.isFinal) return;
   let { symbol, close, volume } = candle;
   let curPrice = record.get(symbol);
   if (curPrice) {
     let percent = Math.abs((curPrice - close) / close) * 100;
     if (percent >= 1) {
-      console.log(symbol, curPrice, close, percent);
       alertUp(symbol, curPrice, close, percent);
     }
   }
